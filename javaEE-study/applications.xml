@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- 定义bean对象 默认通过无参构造方法生成对象 -->
+    <bean id="duck1" class="fengdecong.model.Duck">
+        <property name="name" value="LadyGaga"/>
+        <property name="age" value="10"/>
+    </bean>
+
+    <!-- 通过有参的构造方法定义Bean对象 -->
+    <bean id="duck2" class="fengdecong.model.Duck">
+            <constructor-arg name="name" value="烤鸭"/>
+            <constructor-arg name="age" value="2"/>
+    </bean>
+
+    <bean id="duckShop" class="fengdecong.model.DuckShop">
+            <property name="ducks">
+                <list>
+                    <ref bean="duck1"/>
+                    <ref bean="duck2"/>
+                </list>
+            </property>
+    </bean>
+
+    <bean id="p1" class="fengdecong.model.Person">
+            <property name="duck" ref="duck1"/>
+    </bean>
+
+    <!-- 通过静态方法实例化对象-->
+    <bean id="duck3" class="fengdecong.model.DuckFactory" factory-method="creat"></bean>
+
+    <!--通过实例方法实例出来的对象 -->
+    <bean id="duckFactory" class="fengdecong.model.DuckFactory" ></bean>
+    <bean id="duck4" factory-bean="duckFactory" factory-method="creat1"></bean>
+</beans>
